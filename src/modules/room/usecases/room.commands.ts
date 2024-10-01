@@ -24,8 +24,7 @@ export class CreateRoomCommand {
   amenities: string[];
   @ApiProperty()
   roomImage: FileDto;
-  @ApiProperty()
-  @IsNotEmpty()
+
   @ApiProperty()
   enabled: boolean;
   @ApiProperty()
@@ -39,8 +38,8 @@ export class CreateRoomCommand {
     roomDomain.description = command.description;
     roomDomain.amenities = command.amenities;
     roomDomain.roomImage = command.roomImage;
-    roomDomain.enabled = command.enabled;
-    roomDomain.status = command.status;
+    // roomDomain.enabled = command.enabled;
+    // roomDomain.status = command.status;
     return roomDomain;
   }
 }
@@ -65,17 +64,6 @@ export class UpdateRoomCommand {
   amenities: string[];
   @ApiProperty()
   roomImage: FileDto;
-  @ApiProperty()
-  @IsNotEmpty()
-  @Transform(({ value }) => {
-    if (value.toLowerCase() === 'true') {
-      return true;
-    } else if (value.toLowerCase() === 'false') {
-      return false;
-    }
-    throw new Error('Invalid boolean value');
-  })
-  isPrivate: boolean;
 
   @ApiProperty()
   status: string;

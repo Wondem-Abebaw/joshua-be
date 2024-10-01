@@ -25,15 +25,15 @@ export class RoomQuery {
     relations = [],
     withDeleted = false,
   ): Promise<RoomResponse> {
-    const parent = await this.roomRepository.findOne({
+    const room = await this.roomRepository.findOne({
       where: { id: id },
       relations,
       withDeleted: withDeleted,
     });
-    if (!parent) {
+    if (!room) {
       throw new NotFoundException(`Room not found with id ${id}`);
     }
-    return RoomResponse.fromEntity(parent);
+    return RoomResponse.fromEntity(room);
   }
   async getRooms(
     query: CollectionQuery,

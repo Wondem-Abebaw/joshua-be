@@ -80,6 +80,7 @@ export class RoomController {
     return this.roomQuery.getRoom(id, includeQuery.includes, true);
   }
   @Get('get-rooms')
+  @AllowAnonymous()
   @ApiPaginatedResponse(RoomResponse)
   async getRooms(@Query() query: CollectionQuery) {
     return this.roomQuery.getRooms(query);
@@ -214,21 +215,21 @@ export class RoomController {
       limits: { fileSize: Math.pow(1024, 2) },
     }),
   )
-  // async uploadRoomLogo(
-  //   @Param('id') id: string,
-  //   @UploadedFile() roomImage: Express.Multer.File,
-  // ) {
-  //   if (roomImage) {
-  //     const result = await this.fileManagerService.uploadFile(
-  //       roomImage,
-  //       FileManagerHelper.UPLOADED_FILES_DESTINATION,
-  //     );
-  //     if (result) {
-  //       return this.command.updateRoomLogo(id, result);
-  //     }
-  //   }
-  //   throw new BadRequestException(`Bad Request`);
-  // }
+  async uploadRoomImage(
+    @Param('id') id: string,
+    @UploadedFile() roomImage: Express.Multer.File,
+  ) {
+    if (roomImage) {
+      const result = await this.fileManagerService.uploadFile(
+        roomImage,
+        FileManagerHelper.UPLOADED_FILES_DESTINATION,
+      );
+      if (result) {
+        return this.command.updateRoomImage(id, result);
+      }
+    }
+    throw new BadRequestException(`Bad Request`);
+  }
   @Get('export-rooms')
   @AllowAnonymous()
   async exportRooms(

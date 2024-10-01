@@ -12,7 +12,7 @@ export class RoomEntity extends CommonEntity {
   id: string;
   @Column()
   name: string;
-  @Column()
+  @Column({ nullable: true })
   description: string;
   @Column()
   price: number;
@@ -22,6 +22,6 @@ export class RoomEntity extends CommonEntity {
   roomImage: FileDto;
   @Column({ default: true })
   enabled: boolean;
-  @Column()
+  @Column({ nullable: true })
   status: string;
 }

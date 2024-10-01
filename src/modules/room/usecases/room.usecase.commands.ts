@@ -176,7 +176,7 @@ export class RoomCommands {
     }
     return RoomResponse.fromEntity(result);
   }
-  async updateRoomroomImage(id: string, fileDto: FileResponseDto) {
+  async updateRoomImage(id: string, fileDto: FileResponseDto) {
     const roomDomain = await this.roomRepository.getById(id);
     if (!roomDomain) {
       throw new NotFoundException(`Kid not found with id ${id}`);
